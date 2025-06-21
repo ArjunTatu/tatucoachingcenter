@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Under Construction</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        color: #fff;
+    }
+
+    .blur-box {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        animation: float 6s ease-in-out infinite alternate;
+    }
+
+    .blur-box:nth-child(1) {
+        top: 10%;
+        left: 20%;
+    }
+
+    .blur-box:nth-child(2) {
+        top: 50%;
+        left: 70%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 1s;
+    }
+
+    .blur-box:nth-child(3) {
+        bottom: 10%;
+        left: 35%;
+        width: 180px;
+        height: 180px;
+        animation-delay: 2s;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    .message {
+        z-index: 1;
+        text-align: center;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(6px);
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .message h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .message p {
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+</style>
+</head>
+<body>
+
+    <!-- Floating blurred shapes -->
+    <div class="blur-box"></div>
+    <div class="blur-box"></div>
+    <div class="blur-box"></div>
+
+    <!-- Centered message -->
+    <div class="message">
+        <h1>Site is Under Construction</h1>
+        <p>We'll be back soon. Thanks for your patience!</p>
+    </div>
+
+</body>
+</html>
