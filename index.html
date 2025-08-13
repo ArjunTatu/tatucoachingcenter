@@ -1,26 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tatu Coaching Center</title>
-  <link rel="icon" type="image" href="Civil.jpg">
+  <title>Login Page</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="login-box" id="loginBox">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="checkLogin()">Submit</button>
+    <p id="message" style="color:red;"></p>
+  </div>
 
-  <header>
-    <h1>TATU COACHING CENTER</h1>
-  </header>
+  <script>
+    const users = {
+      "Karan": "hi",
+      "Varun": "ramya",
+      "Sanket": "sanketyz",
+      "Aditya": "adibolt",
+      "Vinod": "vinya",
+      "Yash": "yp",
+      "Soham": "soham",
+      "Vivek": "pink"
+    };
+    
+    const loginBox = document.getElementById("loginBox");
+    const now = new Date().getTime();
+    const loginTime = localStorage.getItem("loginTime");
+    const loggedInUser = localStorage.getItem("loggedInUser");
 
-  <a href="se.html" class="box">SE</a>
-  <a href="te.html" class="box">TE</a>
-  <a href="be.html" class="box">BE</a>
+    // Check if user is already logged in and within 24 hours
+    if (loggedInUser && loginTime && (now - loginTime < 24 * 60 * 60 * 1000)) {
+      window.location.href = "dashboard.html";
+    } else {
+      // Clear expired login
+      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("loginTime");
+    }
 
-<footer>
-  <p> Welcome to Club Bro </p>
- </footer>
+    function checkLogin() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const message = document.getElementById("message");
 
-  <script src="script.js"></script>
+      if (users[user] && users[user] === pass) {
+        localStorage.setItem("loggedInUser", user);
+        localStorage.setItem("loginTime", new Date().getTime());
+        window.location.href = "dashboard.html";
+      } else {
+        message.textContent = "Invalid username or password!";
+      }
+    }
+  </script>
 </body>
 </html>
