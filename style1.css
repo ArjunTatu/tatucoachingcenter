@@ -90,7 +90,7 @@ main {
    disply: block;
 }
 
-    footer {
+ footer {
       position: fixed;
       text-align: center;
       padding: 20px;
@@ -107,7 +107,7 @@ main {
     100% { background-position: 100% 50%; }
 }
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
   .box {
     width: 100%;
   }
