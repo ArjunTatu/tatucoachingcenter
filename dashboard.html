@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tatu Coaching Center</title>
+  <link rel="icon" type="image" href="Civil.jpg">
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+  <header>
+    <h1>TATU COACHING CENTER</h1>
+  <!-- Logout Button in Top-Right -->
+  <div class="top-bar">
+    <div class="user-info">
+      <span id="usernameDisplay"></span>
+    </div>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+  </div>
+  </header>
+
+  <a href="se.html" class="box">SE</a>
+  <a href="te.html" class="box">TE</a>
+  <a href="be.html" class="box">BE</a>
+
+<footer>
+  <p> Welcome to Club Bro </p>
+ </footer>
+
+<script>
+    const user = localStorage.getItem("loggedInUser");
+    const loginTime = localStorage.getItem("loginTime");
+    const now = new Date().getTime();
+
+    if (!user || !loginTime || (now - loginTime > 24 * 60 * 60 * 1000)) {
+      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("loginTime");
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("usernameDisplay").textContent = `Logged in as: ${user}`;
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("loginTime");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
