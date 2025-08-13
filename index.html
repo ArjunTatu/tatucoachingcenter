@@ -51,11 +51,13 @@
         localStorage.setItem("loggedInUser", user);
         localStorage.setItem("loginTime", new Date().getTime());
         window.location.href = "dashboard.html";
-      } else {
+      } 
+      else {
         message.textContent = "Invalid username or password!";
       }
     }
   </script>
 </body>
 </html>
+
 
