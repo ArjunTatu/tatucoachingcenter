@@ -1,17 +1,3 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-image: url("Bg 3.webp");
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
-}
-
 header {
   background: linear-gradient(to right, #0f0c29, #302b63, #24243e, #1e3c90)  ;
   color: white;
@@ -19,60 +5,99 @@ header {
   text-align: center;
 }
 
-main {
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
-.box {
-  display: block;
-  width: 50%;
-  margin: 15px auto;
-  padding: 35px;
-  background: rgba(255, 255, 255, 0.1); /* Transparency */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.login-box {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00f0ff;
+  animation: fadeIn 2s ease;
+  width: 300px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background: #1e1e2f;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #00f0ff;
+  border: none;
+  border-radius: 5px;
   color: black;
-  text-decoration: none;
-  text-align: center;
-  border-radius: 10px;
-  font-size: 24px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s, transform 0.2s;
-  backdrop-filter: blur(10px); /* Blur effect */
-  -webkit-backdrop-filter: blur(10px); /* For Safari */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.box:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.02);
+  font-weight: bold;
   cursor: pointer;
-}
-.box-link {
-   text-decoration: none;
-   disply: block;
+  transition: background 0.3s ease;
 }
 
-    footer {
-      position: fixed;
-      text-align: center;
-      padding: 20px;
-      color: black;
-      bottom: 0px;
-      width: 100%;
-      background: radial-gradient(#f7e1ad,#e5f1f4,#4ee98c);
-      background-size: 400% 400%;
-      animation: gradientMove 5s infinite alternate;
+button:hover {
+  background: #00c0cc;
 }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+.top-bar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00f0ff;
+  z-index: 1000;
 }
 
-  @media (max-width: 768px) {
-  .box {
-    width: 100%;
-  }
+.user-info {
+  font-size: 14px;
+  color: #00f0ff;
+  font-family: 'Orbitron', sans-serif;
 }
+
+.logout-btn {
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #cc0000, #990000);
+  transform: scale(1.05);
+}
+
