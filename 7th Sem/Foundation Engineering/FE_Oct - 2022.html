@@ -86,5 +86,44 @@
 		<p>c) Explain the effect of water table on bearing capacity. [5]</p>
 </div>
 
+<script>
+  // Set flag to indicate user came via swipe
+  sessionStorage.setItem("fromSwipe", "true");
+
+  // Swipe detection
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, false);
+
+  document.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, false);
+
+  function handleSwipe() {
+    const swipeThreshold = 50; // Minimum swipe distance
+
+    if (touchEndX < touchStartX - swipeThreshold) {
+      // Swiped left → next page
+      window.location.href = "FE_Oct - 2023.html"; // Replace with your next page
+    } else if (touchEndX > touchStartX + swipeThreshold) {
+      // Swiped right → previous page
+      window.location.href = "FE_Oct - 2024.html"; // Replace with your previous page
+    }
+  }
+
+  // Back button handling
+  window.addEventListener("popstate", function () {
+    if (sessionStorage.getItem("fromSwipe") === "true") {
+      sessionStorage.removeItem("fromSwipe");
+      window.location.replace("be.html"); // Replace with your main page
+    }
+  });
+	</script>
+	
 </body>
+
 </html>
