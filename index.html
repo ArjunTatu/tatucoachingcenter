@@ -1,71 +1,201 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login Page</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matrix Login</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', monospace;
+    background: black;
+    overflow: hidden;
+  }
+
+  /* Center Box */
+  .container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 350px;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid #00ff00;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00ff00;
+    text-align: center;
+    z-index: 10;
+  }
+
+  h2 {
+    color: #00ff00;
+    margin-bottom: 20px;
+  }
+
+  .input-box, button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    box-sizing: border-box;
+  }
+
+  input {
+    background: black;
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+    color: #00ff00;
+    font-size: 16px;
+    outline: none;
+  }
+
+  button {
+    background: #00ff00;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background: #00cc00;
+  }
+
+  #message {
+    color: red;
+    margin-top: 5px;
+  }
+
+  /* Mobile Fix */
+  @media (max-width: 480px) {
+    .container {
+      padding: 20px;
+      width: 85%;
+    }
+    h2 { font-size: 22px; }
+    input, button { font-size: 15px; }
+  }
+</style>
 </head>
 <body>
-  <div class="login-box" id="loginBox">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="checkLogin()">Submit</button>
-    <p id="message" style="color:red;"></p>
-  </div>
 
-  <script>
-    const users = {
-      "Karan": "hi",
-      "Varun": "ramya",
-      "Sanket": "sanketyz",
-      "Adi": "adi",
-      "Vinod": "vinya",
-      "Yash": "yp",
-      "Soham": "soham",
-      "Vivek": "pink",
-      "Ganesh": "ganu",
-      "Arjun": "arjun",
-      "Apurva": "Apurva",
-      "2": "2"
-    };
-    
-    const loginBox = document.getElementById("loginBox");
-    const now = new Date().getTime();
-    const loginTime = localStorage.getItem("loginTime");
-    const loggedInUser = localStorage.getItem("loggedInUser");
+<canvas id="matrixCanvas"></canvas>
 
-    // Check if user is already logged in and within 24 hours
-    if (loggedInUser && loginTime && (now - loginTime < 24 * 60 * 60 * 1000)) {
+<div class="container">
+  <h2>Login</h2>
+  <input type="text" class="input-box" id="username" placeholder="Username">
+  <input type="password" class="input-box" id="password" placeholder="Password">
+  <button class="input-box" onclick="checkLogin()">Submit</button>
+  <p id="message"></p>
+</div>
+
+<script>
+  /* Users */
+  const users = {
+    "Karan": "Karan",
+    "Varun": "Varun",
+    "Sanket": "Sanket",
+    "Adi": "Adi",
+    "Vinod": "Vinod",
+    "Yash": "Yash",
+    "Soham": "Soham",
+    "Vivek": "Vivek",
+    "Ganesh": "Ganesh",
+    "Arjun": "Arjun",
+    "Apurva": "Apurva",
+    "1": "1"
+  };
+
+  /* Auto Login Check */
+  const now = Date.now();
+  const loginTime = localStorage.getItem("loginTime");
+  const loggedInUser = localStorage.getItem("loggedInUser");
+
+  if (loggedInUser && loginTime && (now - loginTime < 24 * 60 * 60 * 1000)) {
+    window.location.href = "dashboard.html";
+  }
+
+  /* Login */
+  function checkLogin() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    const msg = document.getElementById("message");
+
+    if (users[user] && users[user] === pass) {
+      localStorage.setItem("loggedInUser", user);
+      localStorage.setItem("loginTime", Date.now());
       window.location.href = "dashboard.html";
     } else {
-      // Clear expired login
-      localStorage.removeItem("loggedInUser");
-      localStorage.removeItem("loginTime");
+      msg.textContent = "Invalid username or password!";
     }
+  }
 
-    function checkLogin() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-      const message = document.getElementById("message");
+  /* ENTER key logic */
+  document.getElementById("username").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      document.getElementById("password").focus(); // go to password
+    }
+  });
 
-      if (users[user] && users[user] === pass) {
-        localStorage.setItem("loggedInUser", user);
-        localStorage.setItem("loginTime", new Date().getTime());
-        window.location.href = "dashboard.html";
-      } 
-      else {
-        message.textContent = "Invalid username or password!";
+  document.getElementById("password").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      checkLogin(); // submit
+    }
+  });
+
+  /* Matrix Background */
+  const canvas = document.getElementById("matrixCanvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+
+  let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%^&*()";
+  letters = letters.split("");
+
+  let fontSize = 18;
+  let columns = canvas.width / fontSize;
+  let drops = [];
+
+  for (let i = 0; i < columns; i++) {
+    drops[i] = 1;
+  }
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.07)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#00ff00";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters[Math.floor(Math.random() * letters.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+        drops[i] = 0;
       }
+
+      drops[i]++;
     }
-  </script>
+  }
+
+  setInterval(drawMatrix, 35);
+
+  window.onresize = () => {
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    columns = canvas.width / fontSize;
+    drops = [];
+    for (let i = 0; i < columns; i++) drops[i] = 1;
+  };
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
