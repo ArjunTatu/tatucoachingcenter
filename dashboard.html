@@ -1,141 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TATU Coaching Center</title>
 <link rel="icon" type="image" href="Civil.jpg">
 
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Courier New', monospace;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* ---------------- BODY ---------------- */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  color: #00ffcc;
+}
 
-    /* Gradient Background */
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    background-size: 300% 300%;
-    animation: gradientMove 12s ease infinite;
-    color: white;
-  }
+/* ---------------- PARTICLE CANVAS ---------------- */
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* behind everything */
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
 
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-  /* HEADER */
-  header {
-    width: 100%;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-  }
+/* ---------------- HEADER ---------------- */
+header {
+  width: 100%;
+  padding: 15px 30px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  z-index: 10;
+}
 
-  header h1 {
-    margin: 0;
-    font-size: 22px;
-    letter-spacing: 1px;
-    color: #00ff88;
-  }
+header h1 {
+  margin: 10;
+  font-size: 28px;
+  text-align: center;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow: 0 0 5px #000000; /* decreased glow */
+}
 
-  .top-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.top-bar {
+  align-items: center;
+  gap: 12px;
+}
 
-  .logout-btn {
-    padding: 8px 15px;
-    background: #00ff88;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #000;
-    font-weight: bold;
-    transition: 0.3s;
-  }
+.logout-btn {
+  padding: 10px 22px;
+  background: #00ffcc;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
 
-  .logout-btn:hover {
-    background: #00cc66;
-  }
+.logout-btn:hover {
+  background: #00cc99;
+  transform: scale(1.05);
+}
 
-  /* CENTER MENU */
+/* ---------------- MENU ---------------- */
+.menu {
+  display: flex;
+  gap: 40px; /* increased spacing */
+  margin-top: 160px;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* ---------------- GLASS BUTTONS ---------------- */
+.box {
+  padding: 35px 80px; /* increased size */
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 18px;
+  border: 2px solid rgba(0, 255, 204, 0.3); /* decreased glow */
+  font-size: 28px; /* larger text */
+  font-weight: bold;
+  color: #00ffcc;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 6px rgba(0,255,204,0.2); /* decreased glow */
+}
+
+.box:hover {
+  background: rgba(0, 255, 204, 0.08);
+  color: #ffffff;
+  border-color: #00ffcc;
+  transform: scale(1.08);
+  box-shadow: 0 0 12px #00ffcc; /* subtle hover glow */
+}
+
+/* ---------------- FOOTER ---------------- */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #00ffcc;
+  text-shadow: 0 0 3px #00ffcc; /* decreased glow */
+  z-index: 1;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 600px) {
   .menu {
-    display: flex;
+    flex-direction: column;
     gap: 25px;
-    margin-top: 120px;
   }
-
-  /* ✨ GLASSY, TRANSPARENT, BIGGER BUTTONS */
   .box {
-    padding: 25px 50px;          /* Increased size */
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(10px);
-    color: #00ff88;
-    font-size: 24px;             /* Bigger text */
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.25);
-    transition: 0.3s;
+    padding: 25px 60px;
+    font-size: 24px;
   }
-
-  .box:hover {
-    background: rgba(255, 255, 255, 0.18);
-    transform: scale(1.05);
-  }
-
-  /* FOOTER */
-  footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 12px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-    color: #00ff88;
-    border-top: 1px solid rgba(255,255,255,0.15);
-    font-size: 14px;
-    letter-spacing: 1px;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 480px) {
-    .menu {
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .box {
-      text-align: center;
-      width: 200px;
-      margin: auto;
-      font-size: 20px;
-      padding: 20px 40px;
-    }
-  }
+}
 </style>
 </head>
 
 <body>
 
+<canvas id="particleCanvas"></canvas>
+
 <header>
-  <h1>TATU COACHING CENTER</h1>
+  <h1>Center</h1>
   <div class="top-bar">
     <span id="usernameDisplay"></span>
     <button class="logout-btn" onclick="logout()">Logout</button>
@@ -145,7 +163,7 @@
 <div class="menu">
   <a href="se.html" class="box">SE</a>
   <a href="te.html" class="box">TE</a>
-  <a href="be.html" class="box">BE</a>
+  <button class="box" onclick="toggleBEPage()">BE</button>
 </div>
 
 <footer>
@@ -153,23 +171,92 @@
 </footer>
 
 <script>
-  const user = localStorage.getItem("loggedInUser");
-  const loginTime = localStorage.getItem("loginTime");
-  const now = new Date().getTime();
+// ---------------- LOGIN CHECK ----------------
+const user = localStorage.getItem("loggedInUser");
+const loginTime = localStorage.getItem("loginTime");
+const now = new Date().getTime();
 
-  if (!user || !loginTime || (now - loginTime > 24 * 60 * 60 * 1000)) {
-    localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("loginTime");
-    window.location.href = "index.html";
-  } else {
-    document.getElementById("usernameDisplay").textContent = `Logged in as: ${user}`;
-  }
+if (!user || !loginTime || (now - loginTime > 24 * 60 * 60 * 1000)) {
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("loginTime");
+  window.location.href = "index.html";
+} else {
+  document.getElementById("usernameDisplay").textContent = `Logged in as: ${user}`;
+}
 
-  function logout() {
-    localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("loginTime");
-    window.location.href = "index.html";
+function logout() {
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("loginTime");
+  window.location.href = "index.html";
+}
+
+// ---------------- BE BUTTON TOGGLE ----------------
+function toggleBEPage() {
+  const lastPage = localStorage.getItem("lastBEPage");
+  const nextPage = (!lastPage || lastPage === "be2.html") ? "be.html" : "be2.html";
+  localStorage.setItem("lastBEPage", nextPage);
+  window.location.href = nextPage;
+}
+
+// ---------------- PARTICLE ANIMATION ----------------
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+const particleCount = 80;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() - 0.5) * 1.5;
+    this.speedY = (Math.random() - 0.5) * 1.5;
+    this.color = "rgba(0,255,204,0.4)"; // subtle color
   }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.x > canvas.width) this.x = 0;
+    if (this.x < 0) this.x = canvas.width;
+    if (this.y > canvas.height) this.y = 0;
+    if (this.y < 0) this.y = canvas.height;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  particlesArray = [];
+  for (let i = 0; i < particleCount; i++) {
+    particlesArray.push(new Particle());
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particlesArray.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animateParticles);
+}
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  initParticles();
+});
+
+initParticles();
+animateParticles();
 </script>
 
 </body>
