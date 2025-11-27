@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BE PYQ — Dashboard</title>
+<link rel="icon" type="image" href="Civil.jpg">
+<meta name="theme-color" content="#0f0c29">
+
+<style>
+  /* --- TATU style base --- */
+  :root{
+    --neon: #00ff88;
+    --neon-dark: #00cc66;
+    --glass: rgba(255,255,255,0.08);
+    --glass-strong: rgba(255,255,255,0.12);
+    --panel-bg: rgba(0,0,0,0.16);
+    --card-radius: 12px;
+    --accent: #00ff88;
+  }
+
+  html,body{height:100%;margin:0;padding:0;font-family: 'Courier New', monospace;background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);background-size:300% 300%;animation: gradientMove 12s ease infinite;color:white;}
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ---- header ---- */
+  header {
+    width:100%;
+    padding:14px 20px;
+    background: var(--glass);
+    backdrop-filter: blur(8px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:fixed;
+    top:0; left:0;
+    z-index:100;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  header .title { display:flex; flex-direction:column; }
+  header h1 { margin:0; font-size:20px; color:var(--neon); letter-spacing:1px; }
+  header small { margin-top:6px; font-size:12px; opacity:0.85; color:#d9ffd8; }
+  .top-bar { display:flex; align-items:center; gap:10px; }
+
+  .logout-btn {
+    padding:8px 14px;
+    background: var(--neon);
+    border: none;
+    margin-right: 35px;
+    border-radius:6px;
+    color:#042014;
+    font-weight:700;
+    cursor:pointer;
+    transition: transform .14s ease, background .14s ease;
+  }
+  .logout-btn:hover{ background: var(--neon-dark); transform:scale(1.03); }
+
+  /* ---- page shell ---- */
+  .page {
+    max-width:1500px;
+    margin: 100px auto 90px;
+    padding: 20px;
+  }
+
+  /* ---- big semester boxes row ---- */
+  .sem-row {
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+  }
+
+  .sem-box{
+    min-width:260px;
+    max-width:460px;
+    padding:28px 32px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(10px);
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,0.14);
+    text-align:center;
+    cursor:pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .sem-box:hover{ transform: translateY(-8px); background: rgba(255,255,255,0.14); }
+  .sem-box h2{ margin:0; color:var(--neon); font-size:26px; letter-spacing:1px; }
+  .sem-box p{ margin:8px 0 0; font-size:14px; color:#e9ffeb; }
+
+  /* ---- accordion content area ---- */
+  .accordion {
+    margin-top:18px;
+    overflow:hidden;
+    border-radius:12px;
+    transition: max-height .32s ease;
+    max-height:0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.04);
+  }
+  .accordion.open { max-height:1600px; /* enough for content; could be increased */ padding:18px; }
+
+  .inner-sections{ display:flex; gap:18px; flex-wrap:wrap; justify-content:space-between; }
+
+  .panel {
+    background: rgba(0,0,0,0.14);
+    border-radius:10px;
+    padding:12px;
+    flex:1 1 360px;
+    min-width:260px;
+    border:1px solid rgba(255,255,255,0.04);
+  }
+  .panel h3 { margin:0 0 10px; color:var(--neon); font-size:18px; }
+  .panel p.meta{ margin:0 0 8px; color:#cfefd6; font-size:13px; }
+
+  .link-list { display:flex; flex-direction:column; gap:8px; }
+  a.paper {
+    display:inline-flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 12px;
+    background:rgba(255,255,255,0.06);
+    color:#e6fff0;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:700;
+    border:1px solid rgba(255,255,255,0.03);
+    transition: transform .12s ease, background .12s ease;
+  }
+  a.paper:hover { transform: translateX(8px); background: rgba(255,255,255,0.12); color:#002b18; }
+
+  .no-data { padding:12px; color:#cfefd6; font-weight:700; background:transparent; border-radius:8px; }
+
+  /* small helpers */
+  .small-note{ margin-top:12px; font-size:13px; color:#d7ffd9; opacity:0.9; }
+
+  /* footer */
+  footer {
+    position:fixed;
+    bottom:0; left:0; right:0;
+    padding:10px 16px;
+    text-align:center;
+    background: rgba(255,255,255,0.04);
+    color:var(--neon);
+    border-top:1px solid rgba(255,255,255,0.06);
+    font-weight:700;
+  }
+
+  /* responsive */
+  @media (max-width:820px){
+    .inner-sections{ flex-direction:column; }
+    .panel{ width:100% }
+    .sem-box{ width:100%; max-width:800px; }
+    .sem-row{ gap:18px; padding: 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title">
+    <h1>BE PYQ Dashboard</h1>
+    <small id="userNameDisplay">Checking login…</small>
+  </div>
+  <div class="top-bar">
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- big semester boxes -->
+  <div class="sem-row" role="tablist" aria-label="Semesters">
+    <div class="sem-box" id="sem7Box" role="button" aria-expanded="false" tabindex="0" aria-controls="sem7Acc">
+      <h2>7th Semester</h2>
+      <p>Click to open subjects & papers</p>
+    </div>
+
+    <div class="sem-box" id="sem8Box" role="button" aria-expanded="false" tabindex="0" aria-controls="sem8Acc">
+      <h2>8th Semester</h2>
+      <p>Click to open In-Sem and End-Sem</p>
+    </div>
+  </div>
+
+  <!-- 7th semester accordion (In-Sem and End-Sem inside panels) -->
+  <div id="sem7Acc" class="accordion" aria-hidden="true">
+    <div class="inner-sections">
+
+      <!-- In-Sem panel -->
+      <div class="panel" aria-labelledby="sem7-in-title">
+        <h3 id="sem7-in-title">7th Semester — In-Sem</h3>
+        <p class="meta">In-sem papers & solutions</p>
+        <div class="link-list">
+          <strong style="color:#dfffdc">Foundation Engineering</strong>
+          <a class="paper" href="7th Sem/Foundation Engineering/FE_Sep - 2024.html" target="_blank" rel="noopener">Sep - 2024</a>
+          <a class="paper" href="7th Sem/Foundation Engineering/FE_Sep - 2023.html" target="_blank" rel="noopener">Sep - 2023</a>
+          <a class="paper" href="7th Sem/Foundation Engineering/FE_Oct - 2022.html" target="_blank" rel="noopener">Oct - 2022</a>
+          <a class="paper" href="FE_Insem_Solution.pdf" target="_blank" rel="noopener">Solutions (PDF)</a>
+
+          <div style="height:8px"></div>
+
+          <strong style="color:#dfffdc">Transportation Engineering</strong>
+          <a class="paper" href="7th Sem/Transportation Engineering/TE_Sep - 2024.html" target="_blank" rel="noopener">Sep - 2024</a>
+          <a class="paper" href="7th Sem/Transportation Engineering/TE_Sep - 2023.html" target="_blank" rel="noopener">Sep - 2023</a>
+          <a class="paper" href="7th Sem/Transportation Engineering/TE_Oct - 2022.html" target="_blank" rel="noopener">Oct - 2022</a>
+          <a class="paper" href="TE_Insem_Solution.pdf" target="_blank" rel="noopener">Solutions (PDF)</a>
+
+          <div style="height:8px"></div>
+
+          <strong style="color:#dfffdc">Operation Research</strong>
+          <div class="no-data">No Data Found</div>
+
+          <div style="height:8px"></div>
+
+          <strong style="color:#dfffdc">Design of Prestressed Concrete Structures</strong>
+          <div class="no-data">No Data Found</div>
+        </div>
+      </div>
+
+      <!-- End-Sem panel -->
+      <div class="panel" aria-labelledby="sem7-end-title">
+        <h3 id="sem7-end-title">7th Semester — End-Sem</h3>
+        <p class="meta">End-sem previous year PDFs</p>
+        <div class="link-list">
+          <strong style="color:#dfffdc">Foundation Engineering</strong>
+          <a class="paper" href="7th Sem/Foundation Engineering/FE_Nov_Dec_2024.pdf" target="_blank">Nov_Dec_2024</a>
+          <a class="paper" href="7th Sem/Foundation Engineering/FE_May_Jun_2024.pdf" target="_blank">May_Jun_2024</a>
+          <a class="paper" href="7th Sem/Foundation Engineering/FE_Nov_Dec_2023.pdf" target="_blank">Nov_Dec_2023</a>
+          <a class="paper" href="7th Sem/Foundation Engineering/FE_May_Jun_2023.pdf" target="_blank">May_Jun_2023</a>
+          <a class="paper" href="7th Sem/Foundation Engineering/FE_Nov_Dec_2022.pdf" target="_blank">Nov_Dec_2022</a>
+
+          <div style="height:8px"></div>
+
+          <strong style="color:#dfffdc">Transportation Engineering</strong>
+          <a class="paper" href="7th Sem/Transportation Engineering/TE_Nov_Dec_2024.pdf" target="_blank">Nov_Dec_2024</a>
+          <a class="paper" href="7th Sem/Transportation Engineering/TE_May_Jun_2024.pdf" target="_blank">May_Jun_2024</a>
+          <a class="paper" href="7th Sem/Transportation Engineering/TE_Nov_Dec_2023.pdf" target="_blank">Nov_Dec_2023</a>
+          <a class="paper" href="7th Sem/Transportation Engineering/TE_May_Jun_2023.pdf" target="_blank">May_Jun_2023</a>
+          <a class="paper" href="7th Sem/Transportation Engineering/TE_Nov_Dec_2022.pdf" target="_blank">Nov_Dec_2022</a>
+
+          <div style="height:8px"></div>
+
+          <strong style="color:#dfffdc">Operation Research</strong>
+          <a class="paper" href="7th Sem/Operation Research/OR_Nov_Dec_2024.pdf" target="_blank">Nov_Dec_2024</a>
+          <a class="paper" href="7th Sem/Operation Research/OR_May_Jun_2024.pdf" target="_blank">May_Jun_2024</a>
+          <a class="paper" href="7th Sem/Operation Research/OR_Nov_Dec_2023.pdf" target="_blank">Nov_Dec_2023</a>
+          <a class="paper" href="7th Sem/Operation Research/OR_May_Jun_2023.pdf" target="_blank">May_Jun_2023</a>
+          <a class="paper" href="7th Sem/Operation Research/OR_Nov_Dec_2022.pdf" target="_blank">Nov_Dec_2022</a>
+
+          <div style="height:8px"></div>
+
+          <strong style="color:#dfffdc">Design of Prestressed Concrete Structures</strong>
+          <a class="paper" href="7th Sem/Design of Prestressed Concrete Structures/PT_Nov_Dec_2024.pdf" target="_blank">Nov_Dec_2024</a>
+          <a class="paper" href="7th Sem/Design of Prestressed Concrete Structures/PT_May_Jun_2024.pdf" target="_blank">May_Jun_2024</a>
+          <a class="paper" href="7th Sem/Design of Prestressed Concrete Structures/PT_Nov_Dec_2023.pdf" target="_blank">Nov_Dec_2023</a>
+          <a class="paper" href="7th Sem/Design of Prestressed Concrete Structures/PT_May_Jun_2023.pdf" target="_blank">May_Jun_2023</a>
+          <a class="paper" href="7th Sem/Design of Prestressed Concrete Structures/PT_Nov_Dec_2022.pdf" target="_blank">Nov_Dec_2022</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="small-note">Tip: Press <strong>E</strong> to expand 7th, <strong>8</strong> to expand 8th semester. Press <strong>R</strong> to randomize accent.</div>
+  </div>
+
+  <!-- 8th semester accordion with separate In-Sem & End-Sem -->
+  <div id="sem8Acc" class="accordion" aria-hidden="true">
+    <div class="inner-sections">
+
+      <!-- 8th In-Sem panel -->
+      <div class="panel" aria-labelledby="sem8-in-title">
+        <h3 id="sem8-in-title">8th Semester — In-Sem</h3>
+        <p class="meta">In-Sem papers</p>
+        <div class="link-list">
+          <strong style="color:#dfffdc">Dams & Hydraulics Structures</strong>
+          <a class="paper" href="8th Sem/Dams & Hydraulics Structures/DHS_March - 2025.pdf" target="_blank">March - 2025</a>
+          <a class="paper" href="8th Sem/Dams & Hydraulics Structures/DHS_March - 2024.pdf" target="_blank">March - 2024</a>
+          <a class="paper" href="8th Sem/Dams & Hydraulics Structures/DHS_Feb - 2023.pdf" target="_blank">Feb - 2023</a>
+
+          <div style="height:8px"></div>
+
+          <strong style="color:#dfffdc">Quantity Surveying Contracts & Tenders</strong>
+          <a class="paper" href="8th Sem/Quantity Surveying Contracts and Tenders/QT_March - 2025.pdf" target="_blank">March - 2025</a>
+          <a class="paper" href="8th Sem/Quantity Surveying Contracts and Tenders/QT_March - 2024.pdf" target="_blank">March - 2024</a>
+          <a class="paper" href="8th Sem/Quantity Surveying Contracts and Tenders/QT_Feb - 2023.pdf" target="_blank">Feb - 2023</a>
+        </div>
+      </div>
+
+      <!-- 8th End-Sem panel -->
+      <div class="panel" aria-labelledby="sem8-end-title">
+        <h3 id="sem8-end-title">8th Semester — End-Sem</h3>
+        <p class="meta">End-Sem PDFs</p>
+        <div class="link-list">
+          <strong style="color:#dfffdc">Dams & Hydraulics Structures</strong>
+          <a class="paper" href="8th Sem/Dams & Hydraulics Structures/DHS_Nov_Dec_2024.pdf" target="_blank">Nov_Dec_2024</a>
+          <a class="paper" href="8th Sem/Dams & Hydraulics Structures/DHS_May_Jun_2024.pdf" target="_blank">May_Jun_2024</a>
+          <a class="paper" href="8th Sem/Dams & Hydraulics Structures/DHS_Nov_Dec_2023.pdf" target="_blank">Nov_Dec_2023</a>
+          <a class="paper" href="8th Sem/Dams & Hydraulics Structures/DHS_May_Jun_2023.pdf" target="_blank">May_Jun_2023</a>
+
+          <div style="height:8px"></div>
+
+          <strong style="color:#dfffdc">Quantity Surveying Contracts & Tenders</strong>
+          <a class="paper" href="8th Sem/Quantity Surveying Contracts and Tenders/QT_Nov_Dec_2024.pdf" target="_blank">Nov_Dec_2024</a>
+          <a class="paper" href="8th Sem/Quantity Surveying Contracts and Tenders/QT_May_Jun_2024.pdf" target="_blank">May_Jun_2024</a>
+          <a class="paper" href="8th Sem/Quantity Surveying Contracts and Tenders/QT_Nov_Dec_2023.pdf" target="_blank">Nov_Dec_2023</a>
+          <a class="paper" href="8th Sem/Quantity Surveying Contracts and Tenders/QT_May_Jun_2023.pdf" target="_blank">May_Jun_2023</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="small-note" style="margin-top:12px">Tip: Click a semester box to expand. Press <strong>R</strong> to randomize accent color.</div>
+  </div>
+
+</div>
+
+<footer>BE Civil</footer>
+
+<script>
+  // ---------- Login check ----------
+  (function(){
+    const user = localStorage.getItem('loggedInUser');
+    const loginTime = localStorage.getItem('loginTime');
+    const now = Date.now();
+    const userDisplay = document.getElementById('userNameDisplay');
+
+    if (!user || !loginTime || (now - loginTime > 24*60*60*1000)) {
+      localStorage.removeItem('loggedInUser');
+      localStorage.removeItem('loginTime');
+      // redirect to login (enable in production)
+      // window.location.href = 'index.html';
+      userDisplay.textContent = 'Not logged in';
+    } else {
+      userDisplay.textContent = 'Logged in as: ' + user;
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', function(){
+      localStorage.removeItem('loggedInUser');
+      localStorage.removeItem('loginTime');
+      window.location.href = 'index.html';
+    });
+  })();
+
+  // ---------- Accordion logic ----------
+  const sem7Box = document.getElementById('sem7Box');
+  const sem8Box = document.getElementById('sem8Box');
+  const sem7Acc = document.getElementById('sem7Acc');
+  const sem8Acc = document.getElementById('sem8Acc');
+
+  function toggleAccordion(box, acc) {
+    const open = acc.classList.contains('open');
+    // close both first
+    sem7Acc.classList.remove('open'); sem7Acc.setAttribute('aria-hidden','true'); sem7Box.setAttribute('aria-expanded','false');
+    sem8Acc.classList.remove('open'); sem8Acc.setAttribute('aria-hidden','true'); sem8Box.setAttribute('aria-expanded','false');
+
+    if(!open){
+      acc.classList.add('open');
+      acc.setAttribute('aria-hidden','false');
+      box.setAttribute('aria-expanded','true');
+      // scroll into view a bit
+      setTimeout(()=> box.scrollIntoView({behavior:'smooth', block:'center'}), 120);
+    }
+  }
+
+  sem7Box.addEventListener('click', ()=> toggleAccordion(sem7Box, sem7Acc));
+  sem8Box.addEventListener('click', ()=> toggleAccordion(sem8Box, sem8Acc));
+
+  sem7Box.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggleAccordion(sem7Box, sem7Acc); }});
+  sem8Box.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggleAccordion(sem8Box, sem8Acc); }});
+
+  // ---------- Accent randomizer ----------
+  const ACCENTS = ['#00ff88','#00cc99','#66ffcc','#66ffd9','#00e6a3','#9cffb7'];
+  function setRandomAccent(){
+    const c = ACCENTS[Math.floor(Math.random()*ACCENTS.length)];
+    document.documentElement.style.setProperty('--neon', c);
+    document.documentElement.style.setProperty('--neon-dark', shadeColor(c, -20));
+    // also update thin borders if needed
+  }
+  // tiny shade helper
+  function shadeColor(hex, percent) {
+    // hex like #rrggbb
+    const f = hex.slice(1), t = percent<0?0:255, p=Math.abs(percent)/100;
+    const R = parseInt(f.substring(0,2),16), G = parseInt(f.substring(2,4),16), B = parseInt(f.substring(4,6),16);
+    const newR = Math.round((t - R)*p) + R;
+    const newG = Math.round((t - G)*p) + G;
+    const newB = Math.round((t - B)*p) + B;
+    return '#' + ( (1<<24) + (newR<<16) + (newG<<8) + newB ).toString(16).slice(1);
+  }
+  // bind to R key and add small control
+  window.addEventListener('keydown', (e)=>{
+    if(e.key === 'R' || e.key === 'r') setRandomAccent();
+    if(e.key === 'E' || e.key === 'e') toggleAccordion(sem7Box, sem7Acc);
+    if(e.key === '8') toggleAccordion(sem8Box, sem8Acc);
+  });
+  setRandomAccent();
+
+  // accessibility: focusable links order
+  document.querySelectorAll('a.paper').forEach((a,i)=> a.setAttribute('tabindex', 0));
+</script>
+
+</body>
+</html>
