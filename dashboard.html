@@ -1,52 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tatu Coaching Center</title>
-  <link rel="icon" type="image" href="Civil.jpg">
-  <link rel="stylesheet" href="style1.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TATU Coaching Center</title>
+<link rel="icon" type="image" href="Civil.jpg">
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', monospace;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* Gradient Background */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: 300% 300%;
+    animation: gradientMove 12s ease infinite;
+    color: white;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* HEADER */
+  header {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #00ff88;
+  }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logout-btn {
+    padding: 8px 15px;
+    background: #00ff88;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .logout-btn:hover {
+    background: #00cc66;
+  }
+
+  /* CENTER MENU */
+  .menu {
+    display: flex;
+    gap: 25px;
+    margin-top: 120px;
+  }
+
+  /* ✨ GLASSY, TRANSPARENT, BIGGER BUTTONS */
+  .box {
+    padding: 25px 50px;          /* Increased size */
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    color: #00ff88;
+    font-size: 24px;             /* Bigger text */
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: 0.3s;
+  }
+
+  .box:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: scale(1.05);
+  }
+
+  /* FOOTER */
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    color: #00ff88;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    .menu {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .box {
+      text-align: center;
+      width: 200px;
+      margin: auto;
+      font-size: 20px;
+      padding: 20px 40px;
+    }
+  }
+</style>
 </head>
+
 <body>
 
-  <header>
-    <h1>TATU COACHING CENTER</h1>
-  <!-- Logout Button in Top-Right -->
+<header>
+  <h1>TATU COACHING CENTER</h1>
   <div class="top-bar">
-    <div class="user-info">
-      <span id="usernameDisplay"></span>
-    </div>
-    <button onclick="logout()" class="logout-btn">Logout</button>
+    <span id="usernameDisplay"></span>
+    <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
-  </header>
+</header>
 
+<div class="menu">
   <a href="se.html" class="box">SE</a>
   <a href="te.html" class="box">TE</a>
   <a href="be.html" class="box">BE</a>
+</div>
 
 <footer>
-  <p> Welcome to Club Bro </p>
- </footer>
+  Welcome to Club Bro
+</footer>
 
 <script>
-    const user = localStorage.getItem("loggedInUser");
-    const loginTime = localStorage.getItem("loginTime");
-    const now = new Date().getTime();
+  const user = localStorage.getItem("loggedInUser");
+  const loginTime = localStorage.getItem("loginTime");
+  const now = new Date().getTime();
 
-    if (!user || !loginTime || (now - loginTime > 24 * 60 * 60 * 1000)) {
-      localStorage.removeItem("loggedInUser");
-      localStorage.removeItem("loginTime");
-      window.location.href = "index.html";
-    } else {
-      document.getElementById("usernameDisplay").textContent = `Logged in as: ${user}`;
-    }
+  if (!user || !loginTime || (now - loginTime > 24 * 60 * 60 * 1000)) {
+    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("loginTime");
+    window.location.href = "index.html";
+  } else {
+    document.getElementById("usernameDisplay").textContent = `Logged in as: ${user}`;
+  }
 
-    function logout() {
-      localStorage.removeItem("loggedInUser");
-      localStorage.removeItem("loginTime");
-      window.location.href = "index.html";
-    }
-  </script>
+  function logout() {
+    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("loginTime");
+    window.location.href = "index.html";
+  }
+</script>
 
 </body>
 </html>
