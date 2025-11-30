@@ -193,7 +193,7 @@ function logout() {
 // ---------------- BE BUTTON TOGGLE ----------------
 function toggleBEPage() {
   const lastPage = localStorage.getItem("lastBEPage");
-  const nextPage = (!lastPage || lastPage === "be2.html") ? "be.html" : "be2.html";
+  const nextPage = (!lastPage || lastPage === "be.html") ? "be2.html" : "be.html";
   localStorage.setItem("lastBEPage", nextPage);
   window.location.href = nextPage;
 }
