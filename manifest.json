@@ -1,6 +1,6 @@
 {
-  "name": "TATU Coaching Center",
-  "short_name": "TCC",
+  "name": "Tatu Coaching Center",
+  "short_name": "Tatu Coaching Center",
   "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
@@ -17,5 +17,9 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "lang": "en",
+  "categories": [
+    "education"
   ]
 }
