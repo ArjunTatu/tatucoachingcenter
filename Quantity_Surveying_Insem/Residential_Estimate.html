@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Residential Building Estimate</title>
+
+<style>
+
+body{
+font-family:Arial, sans-serif;
+background:#f4f7fb;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+color:#2c3e50;
+}
+
+h2{
+margin-top:25px;
+color:#34495e;
+}
+
+ul{
+line-height:1.6;
+}
+
+.step{
+background:#f9fbff;
+padding:12px;
+border-left:4px solid #3498db;
+margin:10px 0;
+}
+
+.result{
+background:#e8fff0;
+border-left:5px solid #27ae60;
+padding:15px;
+margin-top:20px;
+font-weight:bold;
+}
+
+.back{
+display:inline-block;
+margin-bottom:20px;
+text-decoration:none;
+background:#2c3e50;
+color:white;
+padding:8px 15px;
+border-radius:4px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a class="back" href="index.html">⬅ Back to Questions</a>
+
+<h1>Approximate Estimate of Residential Building</h1>
+<h2>(Cost Index Method)</h2>
+
+<h2>Given Data</h2>
+
+<ul>
+<li>Built up area = 350 sq.m</li>
+<li>Cost of 300 sq.m building = Rs. 16,00,000</li>
+<li>Rise in construction cost = 24%</li>
+<li>Provision for water supply, drainage & electrification = 15%</li>
+</ul>
+
+<h2>Step 1: Cost per sq.m</h2>
+
+<div class="step">
+Cost per sq.m = 16,00,000 / 300<br>
+= Rs. 5,333.33
+</div>
+
+<h2>Step 2: Add 24% Increase</h2>
+
+<div class="step">
+Increase = 24% of 5,333.33<br>
+= Rs. 1,280<br>
+New cost per sq.m = 6,613.33
+</div>
+
+<h2>Step 3: Construction Cost for 350 sq.m</h2>
+
+<div class="step">
+6,613.33 × 350<br>
+= Rs. 23,14,665
+</div>
+
+<h2>Step 4: Add 15% Services</h2>
+
+<div class="step">
+15% of 23,14,665 = Rs. 3,47,200
+</div>
+
+<h2>Final Estimated Cost</h2>
+
+<div class="result">
+Total Cost = 23,14,665 + 3,47,200<br><br>
+Approximate Estimated Cost of Residential Building<br>
+= Rs. 26,61,865<br><br>
+≈ Rs. 26.62 Lakhs
+</div>
+
+</div>
+
+</body>
+</html>

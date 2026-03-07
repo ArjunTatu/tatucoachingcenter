@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hospital Estimate</title>
+
+<style>
+
+body{
+font-family:Arial, sans-serif;
+background:#f4f7fb;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+color:#2c3e50;
+}
+
+h2{
+margin-top:25px;
+color:#34495e;
+}
+
+ul{
+line-height:1.6;
+}
+
+.step{
+background:#f9fbff;
+padding:12px;
+border-left:4px solid #3498db;
+margin:10px 0;
+}
+
+.result{
+background:#e8fff0;
+border-left:5px solid #27ae60;
+padding:15px;
+margin-top:20px;
+font-weight:bold;
+}
+
+.back{
+display:inline-block;
+margin-bottom:20px;
+text-decoration:none;
+background:#2c3e50;
+color:white;
+padding:8px 15px;
+border-radius:4px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a class="back" href="index.html">⬅ Back to Questions</a>
+
+<h1>Approximate Estimate of Hospital Building</h1>
+<h2>(Service Unit Method – Bed Method)</h2>
+
+<h2>Given Data</h2>
+
+<ul>
+<li>Number of beds = 135</li>
+<li>Cost of 125 bed hospital = Rs. 26,00,000</li>
+<li>Rise in construction cost = 20%</li>
+<li>Provision for water supply, drainage & electrification = 12%</li>
+</ul>
+
+<h2>Step 1: Cost per Bed</h2>
+
+<div class="step">
+Cost per bed = 26,00,000 / 125<br>
+= Rs. 20,800
+</div>
+
+<h2>Step 2: Add 20% Increase</h2>
+
+<div class="step">
+Increase = 20% of 20,800 = 4,160<br>
+New cost per bed = 20,800 + 4,160<br>
+= Rs. 24,960
+</div>
+
+<h2>Step 3: Cost for 135 Beds</h2>
+
+<div class="step">
+Construction Cost = 24,960 × 135<br>
+= Rs. 33,69,600
+</div>
+
+<h2>Step 4: Add 12% Services</h2>
+
+<div class="step">
+12% of 33,69,600 = Rs. 4,04,352
+</div>
+
+<h2>Final Estimated Cost</h2>
+
+<div class="result">
+Total Cost = 33,69,600 + 4,04,352<br><br>
+Approximate Estimated Cost of Hospital<br>
+= Rs. 37,73,952<br><br>
+≈ Rs. 37.74 Lakhs
+</div>
+
+</div>
+
+</body>
+</html>
